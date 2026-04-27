@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NexaTMS | Prototipo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand"><span>NX</span><strong>NexaTMS</strong></div>
+      <button class="nav active" data-view="dashboard">Dashboard</button>
+      <button class="nav" data-view="coletas">Coletas</button>
+      <button class="nav" data-view="viagens">Viagens</button>
+      <button class="nav" data-view="tracking">Tracking</button>
+      <button class="nav" data-view="baixa">Baixa</button>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button id="menu">Menu</button>
+        <input id="search" placeholder="Buscar CT-e, cliente, cidade ou status" />
+        <span>Filial Campinas</span>
+      </header>
+
+      <section id="dashboard" class="view show">
+        <div class="heading">
+          <div><small>Torre de controle</small><h1>Operacao de hoje</h1></div>
+          <button class="primary" data-open="coletas">Nova coleta</button>
+        </div>
+        <div class="kpis" id="kpis"></div>
+        <div class="grid two">
+          <section class="panel"><h2>Fluxo operacional</h2><div class="board" id="board"></div></section>
+          <section class="panel"><h2>Mapa de rotas</h2><div class="map"><span>CPQ</span><span>JDI</span><span>SAO</span><span>SSZ</span></div><div id="routes"></div></section>
+        </div>
+        <section class="panel"><h2>Entregas prioritarias</h2><div class="table" id="priority"></div></section>
+      </section>
+
+      <section id="coletas" class="view">
+        <div class="heading"><div><small>Entrada da carga</small><h1>Coletas</h1></div><button class="primary" id="saveCollection">Salvar coleta</button></div>
+        <div class="grid two">
+          <section class="panel">
+            <h2>Programar coleta</h2>
+            <form id="collectionForm" class="form">
+              <label>Cliente<input name="cliente" value="Atlas Home" required /></label>
+              <label>Remetente<input name="remetente" value="CD Campinas" required /></label>
+              <label>Destino<input name="destino" value="Sao Paulo, SP" required /></label>
+              <label>Janela<select name="janela"><option>Hoje, 14:00-16:00</option><option>Hoje, 16:00-18:00</option><option>Amanha, 08:00-10:00</option></select></label>
+              <label>Volumes<input name="volumes" type="number" value="18" min="1" /></label>
+              <label>Peso kg<input name="peso" type="number" value="420" min="1" /></label>
+              <label class="wide">Observacao<textarea name="obs">Necessario agendamento na portaria.</textarea></label>
+            </form>
+          </section>
+          <section class="panel"><h2>Fila de coletas</h2><div class="tabs"><button data-filter="Todas" class="active">Todas</button><button data-filter="Pendente">Pendentes</button><button data-filter="Agendada">Agendadas</button></div><div id="collections"></div></section>
+        </div>
+      </section>
+
+      <section id="viagens" class="view">
+        <div class="heading"><div><small>Expedicao</small><h1>Viagens e manifestos</h1></div><button class="primary">Montar viagem</button></div>
+        <div class="grid two"><section class="panel" id="trips"></section><section class="panel" id="tripDetail"></section></div>
+      </section>
+
+      <section id="tracking" class="view">
+        <div class="heading"><div><small>Portal do cliente</small><h1>Tracking de remessa</h1></div><button id="copyTracking">Copiar link</button></div>
+        <section class="panel tracking-search"><input id="trackingSearch" value="CTE-843921" /><button class="primary" id="runTracking">Consultar</button></section>
+        <div class="grid two"><section class="panel" id="trackingCard"></section><section class="panel"><h2>Linha do tempo</h2><div id="timeline"></div></section></div>
+      </section>
+
+      <section id="baixa" class="view">
+        <div class="heading"><div><small>Mobile motorista</small><h1>Baixa de entrega</h1></div><button class="primary" id="confirmDelivery">Confirmar entrega</button></div>
+        <div class="grid two"><section class="phone"><h2>Rota SP-03</h2><div class="scan" id="scanCode">Aguardando DANFE</div><div id="driverStops"></div></section><section class="panel"><h2>Comprovante digital</h2><div class="proof"><button>Foto</button><button>Assinatura</button><button>Ocorrencia</button></div><div id="deliverySummary"></div></section></div>
+      </section>
+    </main>
+    <div id="toast"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
